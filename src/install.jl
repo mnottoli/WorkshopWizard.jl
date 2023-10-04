@@ -14,7 +14,9 @@ function download(
     path = default_path(),
     auto_overwrite = false,
 )
-    if !occursin("github.com", repo)
+    # if the repo is in the form foo/bar, then we assume it is missing
+    # the github base url in front
+    if occursin(r"^[^/]+/[^/]+$", repo)
         repo = joinpath(GITHUB_BASEURL, repo)
     end
     workshop = basename(repo)
